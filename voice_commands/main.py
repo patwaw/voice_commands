@@ -12,7 +12,13 @@ import json
 URL = 'https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=en-US'
 HEADER = {'Content-Type': 'audio/x-flac; rate=16000', 'User-Agent':'Mozilla/5.0'}
 
-sound = open(sys.argv[1], 'r').read()
+try:
+	flacfile = sys.argv[1]
+except IndexError:
+	print "./main.py file.flac"
+	sys.exit(1)
+	
+sound = open(flacfile, 'r').read()
 
 request = urllib2.Request(URL, data=sound, headers=HEADER)
 response = urllib2.urlopen(request)
